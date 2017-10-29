@@ -7,22 +7,22 @@ This is, firstly, achieved by defaulting to the adoption of profiles.
 Wittier will treat these profiles as root folders for the webtasks, essentially creating a folder structure.
 
 To simplify the difference between Webtask and a user's webtasks, we will define  
-**Webtask** as the platform and  
-**functions** as the individual webtasks a user will create.  
-A **service** is a collection of functions that are combined into a, *you guessed it*, service.  
+**Webtask** as the Webtask platform  
+**functions** as the individual webtasks a user will create  
+**service** as a collection of functions that are combined into a, *you guessed it*, service.  
 (CRUD operations, endpoints of a collective backend, ...)
 
 Wittier does not replace `wt-cli` but serves as a user-friendly wrapper.  
-In the end, we want to be able to:
-* Quickly configure container profiles from Extend 
+In the end, we want to be able to
+* quickly configure container profiles from Extend 
 `wittier profile`
-* Migrate default profiles from Webtask to their own dedicated 
+* migrate default profiles from Webtask to their own dedicated 
 `wittier migrate`
-* List existing webtasks, all or profile specific, allowing them to be edited in the web editor. 
+* list existing webtasks, all or profile specific, allowing them to be edited in the web editor. 
 `wittier edit` / `wittier edit <profile>` / `wittier edit <profile>/<function>`
-* Configure functions together into a service via a `wittier.yml` file  
+* configure functions together into a service via a `wittier.yml` file  
 and deploy/update all of them from the project folder via `wittier deploy`
-* ... Let me think of other stuff to add :wink:
+* ... let me think of other stuff to add :wink:
 
 ### wittier.yml
 *A work in progress*
@@ -30,6 +30,15 @@ and deploy/update all of them from the project folder via `wittier deploy`
 ### Learning from serverless.com
 *Another work in progress.*
 
-### Nice to haves
+### Other must haves
+* Quickly initialize new functions and services without a hitch
+* Provide a high-level scheduler for cron functions
+
+### Should haves
 * A browseable response by `wittier edit` (so we can choose via arrow keys + enter)
 * Tab suggest/autocomplete of profiles or functions, coolest thing there is if you ask me
+
+## Codesponsor
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/SXH7ZmV8YYXzxLZF9dCVxN6W/jeroenptrs/wittier'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/SXH7ZmV8YYXzxLZF9dCVxN6W/jeroenptrs/wittier.svg' />
+</a>
