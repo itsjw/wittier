@@ -1,0 +1,25 @@
+{
+  "name": "wittier",
+  "version": "0.0.1",
+  "description": "Profile and Configuration management for Auth0 Webtask and Extend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeroenptrs/wittier.git"
+  },
+  "keywords": [
+    "serverless",
+    "webtask",
+    "auth0",
+    "cli"
+  ],
+  "author": "Jeroen Peeters <jeroen.peeters@evance.be>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeroenptrs/wittier/issues"
+  },
+  "homepage": "https://github.com/jeroenptrs/wittier#readme"
+}
