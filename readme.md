@@ -20,7 +20,7 @@ In the end, we want to be able to
 `wittier migrate`
 * list existing webtasks, all or profile specific, allowing them to be edited in the web editor. 
 `wittier edit` / `wittier edit <profile>` / `wittier edit <profile>/<function>`
-* configure functions together into a service via a `wittier.yml` file  
+* configure functions together into a service via `wittier.yml`
 and deploy/update all of them from the project folder via `wittier deploy`
 * ... let me think of other stuff to add :wink:
 
@@ -28,22 +28,33 @@ and deploy/update all of them from the project folder via `wittier deploy`
 Right off the bat, the biggest advantage of serverless is the integration of multiple FaaS providers into one platform.
 It's an amazing abstraction of vendors if you're in need of one, but wittier is built to focus solely on Webtask.
 
+The adoption of Webtask in the serverless platform is now taking its first steps, 
+so I'm confident that documentation, examples and functionality will improve over time
+
 Storing the configuration of functions and services in a `.yml` or `.json` file *vastly* improves
 the serverless development experience by providing abstraction and structure.
 The importance demonstrated by the serverless.com team is the reason why
 wittier will use a configuration file as well in the form of `wittier.yml`.
 
-### wittier.yml
-*A work in progress*
-
-### Other must haves
+### (Other) Must haves
 * Quickly initialize new functions and services without a hitch
-* Provide node package management
-* Provide a high-level scheduler for cron functions
+* Address child functions through Mustache or Handlebars, 
+following the naming structure specified in `wittier.yml`
+* Provide an abstraction in the cron scheduler similar to serverless.com
 
 ### Should haves
 * A browseable response by `wittier edit` (so we can choose via arrow keys + enter)
-* Tab suggest/autocomplete of profiles or functions, coolest thing there is if you ask me
+* Determine whether node package management outside of package.json is necessary (possibly via `wittier.yml`)
+* Provide deployment of subservices through defining master and child `wittier.yml` files per function
+
+### Could haves
+* Slack messaging syntax and formatting in templates
+
+### Want to haves
+* Tab suggest/autocomplete of profiles or functions, coolest thing there is if you ask me, but hard to implement
+
+## wittier.yml
+*A work in progress*
 
 ## Codesponsor
 <a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/SXH7ZmV8YYXzxLZF9dCVxN6W/jeroenptrs/wittier'>
