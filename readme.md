@@ -2,6 +2,11 @@
 Wittier is: *Profile and Configuration management for Auth0 Webtask and Extend*
 
 ## The wittier manifesto
+```
+Note that this document is still a work in progress and will be updated on a regular basis, or when I actually have time to work on the CLI.
+Contributions are welcome. You can contact me via GitHub or email <contact@jeroenpeeters.me>.
+```
+
 The **goal** is to create a workflow that allows you to quickly work with Auth0 Webtask/Extend.  
 This is, firstly, achieved by defaulting to the adoption of profiles.
 Wittier will treat these profiles as root folders for the webtasks, essentially creating a folder structure.
