@@ -1,6 +1,6 @@
 {
   "name": "wittier",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Profile and Configuration management for Auth0 Webtask and Extend",
   "main": "index.js",
   "scripts": {
@@ -16,8 +16,11 @@
     "auth0",
     "cli"
   ],
-  "author": "Jeroen Peeters <jeroen.peeters@evance.be>",
+  "author": "Jeroen Peeters <contact@jeroenpeeters.me>",
   "license": "MIT",
+  "bin": {
+    "wittier": "./index.js"
+  },
   "bugs": {
     "url": "https://github.com/jeroenptrs/wittier/issues"
   },
@@ -30,5 +33,8 @@
     "ora": "^1.3.0",
     "progress": "^2.0.0",
     "semver": "^5.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.10.0"
   }
 }
