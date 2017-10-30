@@ -12,7 +12,7 @@ To simplify the difference between Webtask and a user's webtasks, we will define
 **service** as a collection of functions that are combined into a, *you guessed it*, service.  
 (CRUD operations, endpoints of a collective backend, ...)
 
-Wittier does not replace `wt-cli` but serves as a user-friendly wrapper.  
+Wittier does not replace `wt-cli` but serves as a wrapper around the existing CLI and keeps using it in the background.  
 In the end, we want to be able to
 * quickly configure container profiles from Extend 
 `wittier profile`
@@ -24,14 +24,21 @@ In the end, we want to be able to
 and deploy/update all of them from the project folder via `wittier deploy`
 * ... let me think of other stuff to add :wink:
 
+### Learning from serverless.com
+Right off the bat, the biggest advantage of serverless is the integration of multiple FaaS providers into one platform.
+It's an amazing abstraction of vendors if you're in need of one, but wittier is built to focus solely on Webtask.
+
+Storing the configuration of functions and services in a `.yml` or `.json` file *vastly* improves
+the serverless development experience by providing abstraction and structure.
+The importance demonstrated by the serverless.com team is the reason why
+wittier will use a configuration file as well in the form of `wittier.yml`.
+
 ### wittier.yml
 *A work in progress*
 
-### Learning from serverless.com
-*Another work in progress.*
-
 ### Other must haves
 * Quickly initialize new functions and services without a hitch
+* Provide node package management
 * Provide a high-level scheduler for cron functions
 
 ### Should haves
