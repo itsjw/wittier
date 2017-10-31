@@ -2,13 +2,17 @@
 
 const chalk = require('chalk');
 const ora = require('ora');
+const wt = require('wt-cli');
+const fs = require('fs');
 
 module.exports = function(program) {
   program
-    .command('profile <newprofile>')
+    .command('profile <command> <newprofile>')
     .description('testing the description')
     .option('-m, --migrate <oldprofile>', 'The user to authenticate as')
+    .option('-l, --list', 'List profiles')
     .action(function (cmd) {
+      console.log(arguments);
 
       // Initialize here, use later.
       const init = chalk.blue.bold('Wittier profile management');
@@ -46,9 +50,16 @@ module.exports = function(program) {
       // Let's manage some profiles
       console.log(init);
       /**
-       * TODO: Prompt for url, container and token and configure as profile.
+       * TODO: Prompt for url, container and token and configure as profile, wrap as wittier profile add <newprofile>
        */
+
+      /**
+       * TODO: Wrap into wittier profile ls
+       */
+      const configPath = wt.configFile().configPath;
+      var cf = JSON.parse(fs.readFileSync(configPath));
 
       process.exit();
     });
 };
+
