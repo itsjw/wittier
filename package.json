@@ -19,7 +19,7 @@
   "author": "Jeroen Peeters <contact@jeroenpeeters.me>",
   "license": "MIT",
   "bin": {
-    "wittier": "./index.js"
+    "wittier": "./bin/wittier.js"
   },
   "bugs": {
     "url": "https://github.com/jeroenptrs/wittier/issues"
