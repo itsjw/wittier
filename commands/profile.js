@@ -7,7 +7,7 @@ const fs = require('fs');
 
 module.exports = function(program) {
   program
-    .command('profile <command>')
+    .command('profile <command> [profileName]')
     .description('Quickly list or configure container Webtask profiles')
     .option('-m, --migrate <oldprofile>', 'Migrate from this profile to a new profile ' + chalk.red.bold('THIS REMOVES THE OLD PROFILE!'))
     .option('-t --show-token', 'Show the Webtask token when listing all profiles')
@@ -24,6 +24,13 @@ module.exports = function(program) {
       const init = chalk.blue.bold('Wittier profile management');
 
       if (c === 'a' || c === 'add'){
+        if (typeof p !== 'string') {
+          /**
+           * TODO: prompt for profile name.
+           */
+          console.log('do stuff');
+        }
+
         if (program.commands[0].migrate) {
 
           // Store in oldProfile for quick usage.
@@ -34,10 +41,7 @@ module.exports = function(program) {
 
             // CLI spinner voodoo
             console.log(init);
-            const spinner = ora().clear();
-            spinner.color = 'blue';
-            spinner.text = 'Migrating from ' + chalk.blue.bold(oldProfile) + ' to ' + chalk.blue.bold(p) + '\n';
-            spinner.start();
+            console.log('Migrating from ' + chalk.blue.bold(oldProfile) + ' to ' + chalk.blue.bold(p) + '\n' + chalk.red.bold('This will delete ' + oldProfile + '!'));
 
             /**
              * TODO: first migration use case = default. Access wt-cli api for default profile and save to a new profile with name newprofile.
