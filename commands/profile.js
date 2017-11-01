@@ -1,15 +1,14 @@
 'use strict';
 
 const chalk = require('chalk');
-const ora = require('ora');
 const wt = require('wt-cli');
-const fs = require('fs');
+const prompt = require('inquirer');
 
 module.exports = function(program) {
   program
     .command('profile <command> [profileName]')
     .description('Quickly list or configure container Webtask profiles')
-    .option('-m, --migrate <oldprofile>', 'Migrate from this profile to a new profile ' + chalk.red.bold('THIS REMOVES THE OLD PROFILE!'))
+    .option('-m, --migrate [oldprofile]', 'Migrate from this profile to a new profile ' + chalk.red.bold('THIS REMOVES THE OLD PROFILE!'))
     .option('-t --show-token', 'Show the Webtask token when listing all profiles')
     .option('-d --show-default', 'Show the default Webtask profile as well')
     .action(async function (cmd, p) {
@@ -21,45 +20,53 @@ module.exports = function(program) {
 
       // Initialize here, use later.
       const c = cmd.toLowerCase(); // Command
-      const init = chalk.blue.bold('Wittier profile management');
+      const init = chalk.bold('\nWittier profile management\n');
 
       if (c === 'a' || c === 'add'){
+
+        console.log(init);
+
         if (typeof p !== 'string') {
           /**
            * TODO: prompt for profile name.
            */
-          console.log('do stuff');
+          const r = await prompt.prompt([{
+            type: 'input',
+            name: 'profileName',
+            message: 'Please give your new profile a name:'
+          }]);
+
+          p = r.profileName;
+
         }
 
         if (program.commands[0].migrate) {
 
           // Store in oldProfile for quick usage.
-          const oldProfile = program.commands[0].migrate;
+          const oldProfile = program.commands[0].migrate === true ? 'default' : program.commands[0].migrate;
 
           // Check if they be trolling.
           if (oldProfile !== p) {
 
             // CLI spinner voodoo
-            console.log(init);
-            console.log('Migrating from ' + chalk.blue.bold(oldProfile) + ' to ' + chalk.blue.bold(p) + '\n' + chalk.red.bold('This will delete ' + oldProfile + '!'));
+            console.log('Migrating from ' + chalk.blue.bold(oldProfile) + ' to ' + chalk.blue.bold(p) + '.\n' + chalk.red.bold('this will delete ' + oldProfile + '!'));
 
             /**
              * TODO: first migration use case = default. Access wt-cli api for default profile and save to a new profile with name newprofile.
              * TODO: migrations for oldprofile -> newprofile
              */
-
+            console.log('');
             process.exit();
           } else {
 
             // Let the user know he's essentially asking wittier to do nothing.
-            console.log(chalk.red.bold(`Can't migrate from and to the same profile!`));
+            console.log(chalk.red.bold(`Can't migrate from and to the same profile!\n`));
 
             process.exit();
           }
         }
 
         // Let's manage some profiles then!
-        console.log(init);
         /**
          * TODO: Prompt for url, container and token and configure as profile, wrap as wittier profile add <newprofile>
          */
@@ -100,7 +107,7 @@ module.exports = function(program) {
           });
         }*/
 
-        console.log(chalk.bold('[WITTIER] ') + 'Listing all wt-cli profiles:\n');
+        console.log(chalk.bold('\nWittier: listing all wt-cli profiles:\n'));
 
         // Get profile list
         const cf = await wt.configFile().load();
