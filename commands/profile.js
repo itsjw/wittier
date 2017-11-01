@@ -3,6 +3,7 @@
 const chalk = require('chalk');
 const wt = require('wt-cli');
 const prompt = require('inquirer');
+const printProfile = require('../node_modules/wt-cli/lib/printProfile');
 
 module.exports = function(program) {
   program
@@ -14,12 +15,10 @@ module.exports = function(program) {
     .action(async function (cmd, p) {
       /**
        * TODO: delve deeper into wt-cli API!
-       * const configPath = wt.configFile().configPath;
-       * const cf = JSON.parse(fs.readFileSync(configPath)); // Config file
        */
 
       // Initialize here, use later.
-      const c = cmd.toLowerCase(); // Command
+      const c = cmd.toLowerCase();
       const init = chalk.bold('\nWittier profile management\n');
 
       if (c === 'a' || c === 'add'){
@@ -83,30 +82,6 @@ module.exports = function(program) {
          * This is why default does NOT get printed by default.
          */
 
-        /*const { exec } = require('child_process');
-        if (program.commands[0].showToken){
-          exec('wt profile ls --show-token', (error, stdout) => {
-
-            if (error) {
-              console.error(`exec error: ${error}`);
-              return;
-            }
-
-            console.log(`${stdout}`);
-          });
-        } else {
-
-          exec('wt profile ls', (error, stdout) => {
-
-            if (error) {
-              console.error(`exec error: ${error}`);
-              return;
-            }
-
-            console.log(`${stdout}`);
-          });
-        }*/
-
         console.log(chalk.bold('\nWittier: listing all wt-cli profiles:\n'));
 
         // Get profile list
@@ -116,16 +91,18 @@ module.exports = function(program) {
         if (keys.length > 0){
           keys.forEach(key => {
             if (key !== 'default' || (key === 'default' && program.commands[0].showDefault)){
-              console.log(chalk.blue('Profile:     ') + chalk.green(key));
-              console.log(chalk.blue('URL:         ') + cf[key].url);
-              console.log(chalk.blue('Container:   ') + cf[key].container);
-              console.log(
-                program.commands[0].showToken ?
-                  chalk.blue('Token:       ') + cf[key].token + '\n' :
-                  ''
-              );
+
+              // Set profile name
+              cf[key].name = key;
+
+              // Print profile
+              printProfile(cf[key], program.commands[0].showToken ? { token: true } : {} );
+
+              // Spacing
+              console.log('');
             }
           });
+
         } else console.log(chalk.red('No profiles found.'));
 
         process.exit();
