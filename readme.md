@@ -17,17 +17,13 @@ To simplify the difference between Webtask and a user's webtasks, we will define
 **service** as a collection of functions that are combined into a, *you guessed it*, service.  
 (CRUD operations, endpoints of a collective backend, ...)
 
-Wittier does not replace `wt-cli` but serves as a wrapper around the existing CLI and keeps using it in the background.  
-In the end, we want to be able to
-* quickly configure container profiles from Extend 
-`wittier profile`
-* migrate default profiles from Webtask to their own dedicated 
-`wittier migrate`
-* list existing webtasks, all or profile specific, allowing them to be edited in the web editor. 
-`wittier edit` / `wittier edit <profile>` / `wittier edit <profile>/<function>`
-* configure functions together into a service via `wittier.yml`
-and deploy/update all of them from the project folder via `wittier deploy`
-* ... let me think of other stuff to add :wink:
+Wittier does not replace `wt-cli` but serves as a wrapper around the existing CLI and uses it API for most functions.  
+Currently, the following options are in mind:
+* `wittier profile` list profiles, promptfully allow users to configure and migrate Webtask container profiles
+* `wittier edit` list existing profiles and webtasks in a folder-like structure
+(that the user can filter) and link them to the webtask web editor.
+* `wittier deploy` configure functions together into a service via `wittier.yml`
+and deploy/update all of them from the project folder
 
 ### Learning from serverless.com
 Right off the bat, the biggest advantage of serverless is the integration of multiple FaaS providers into one platform.
