@@ -13,12 +13,17 @@ module.exports = function(program) {
     .option('-t --show-token', 'Show the Webtask token when listing all profiles')
     .option('-d --show-default', 'Show the default Webtask profile as well')
     .action(function (cmd, p) {
+      /**
+       * TODO: delve deeper into wt-cli API!
+       */
 
       // Initialize here, use later.
-      const c = cmd.toLowerCase();
+      const c = cmd.toLowerCase(); // Command
+      const configPath = wt.configFile().configPath;
+      const cf = JSON.parse(fs.readFileSync(configPath)); // Config file
       const init = chalk.blue.bold('Wittier profile management');
 
-      if (c === 'add'){
+      if (c === 'a' || c === 'add'){
         if (program.commands[0].migrate) {
 
           // Store in oldProfile for quick usage.
@@ -57,7 +62,7 @@ module.exports = function(program) {
 
         process.exit();
 
-      } else if (c === 'ls' || c === 'list'){
+      } else if (c === 'l' || c === 'ls' || c === 'list'){
         /**
          * Note: this is a function created for completionist's sake.
          * If you're working with wittier to manage your profiles, it means you want a promptful approach to configuring Webtask profiles.
@@ -93,18 +98,20 @@ module.exports = function(program) {
           });
         }*/
 
-        console.log(chalk.bold('Listing all wt-cli profiles:'));
+        console.log(chalk.bold('[WITTIER] ') + 'Listing all wt-cli profiles:\n');
 
-        const configPath = wt.configFile().configPath;
-        const cf = JSON.parse(fs.readFileSync(configPath));
         const keys = Object.keys(cf);
         if (keys.length > 0){
           keys.forEach(key => {
             if (key !== 'default'){
-              console.log(chalk.blue('Profile:      ') + chalk.green(key));
-              console.log(chalk.blue('URL:          ') + cf[key].url);
-              console.log(chalk.blue('Container:    ') + cf[key].container);
-              console.log(program.commands[0].showToken ? chalk.blue('Token:        ') + cf[key].token + '\n' : '');
+              console.log(chalk.blue('Profile:     ') + chalk.green(key));
+              console.log(chalk.blue('URL:         ') + cf[key].url);
+              console.log(chalk.blue('Container:   ') + cf[key].container);
+              console.log(
+                program.commands[0].showToken ?
+                  chalk.blue('Token:       ') + cf[key].token + '\n' :
+                  ''
+              );
             }
           });
         }
