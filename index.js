@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 const chalk = require('chalk');
-const functions = require('./functions/index.js');
+const wittier = require('./functions');
 
 const file = `wittier.json`;
 
-functions.initFile(file).then((wt) => {
+wittier.initFile(file).then((wt) => {
   if (wt) {
     // Set names for project and webtasks
     const project = wt.project;
@@ -15,7 +15,7 @@ functions.initFile(file).then((wt) => {
     const activeWebtasks = [];
     const webtasksToCreate = [];
     const webtasksToDeploy = [];
-    const globalSecrets = (wt.secrets) ? functions.globalSecrets(wt.secrets) : undefined;
+    const globalSecrets = (wt.secrets) ? wittier.globalSecrets(wt.secrets) : undefined;
 
     // Determine Active Webtasks
     webtasks.forEach((webtask) => {
@@ -36,11 +36,11 @@ functions.initFile(file).then((wt) => {
       });
 
       if (webtasksToCreate.length > 0) {
-        functions.create(webtasksToCreate, path, project, wt, globalSecrets, file);
+        wittier.create(webtasksToCreate, path, project, wt, globalSecrets, file);
       }
 
       if (webtasksToDeploy.length > 0) {
-        functions.deploy(webtasksToDeploy, path, project);
+        wittier.deploy(webtasksToDeploy, path, project);
       }
     } else console.log(chalk.red('NO ACTIVE WEBTASKS. ABORTING.'));
   } else console.log(chalk.red('NO ACTIVE WEBTASKS. ABORTING.'));
