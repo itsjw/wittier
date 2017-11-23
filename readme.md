@@ -1,62 +1,85 @@
 # Wittier
-Wittier is: *Profile and Configuration management for Auth0 Webtask and Extend*
+Wittier is a configuration and deploy tool for Auth0's Webtasks.
 
-## The wittier manifesto
+This serves in no way as a replacement for Serverless, 
+but as a lightweight alternative that's dedicated to quickly deploying webtasks.
+
+## Installation
+`npm install wittier --save-dev` or `yarn add wittier -D`
+
+Add this as a deploy script in your `package.json`, for example alongside nodemon to listen for changes:
+``` json
+{
+  "wt": "wittier",
+  "wt-listen": "nodemon --watch src -x \"wittier\""
+}
 ```
-Note that this document is still a work in progress and will be updated on a regular basis,
-or when I actually have time to work on the CLI. Contributions are welcome.
-You can contact me via GitHub or email <contact@jeroenpeeters.me>.
+
+Wittier will look for a `wittier.json` file that will hold the configuration for your deployments.
+
+## wittier.json
+The `wittier.json` is the full overview of your project.
+It lists all webtasks needed to run your program and creates/updates them.
+
+You can use the following example as a template when creating your `wittier.json` file.
+```json
+{
+  "project": "projectName",
+  "entry": "src",
+  "webtasks": {
+    "webtaskName": {
+      "active": true,
+      "created": true
+    },
+    ...
+  },
+  "secrets": {
+    "secretName": "secretValue",
+    ...
+  }
+}
 ```
+### project
+Since your webtask container is able to hold a large amount of webtasks,
+splitting them in projects is a quick way to distinguish whether webtasks belong with eachother.
 
-The **goal** is to create a workflow that allows you to quickly work with Auth0 Webtask/Extend.  
-This is, firstly, achieved by defaulting to the adoption of profiles.
-Wittier will treat these profiles as root folders for the webtasks, essentially creating a folder structure.
+Webtasks will be prefixed with the project's name (in the case of our example, that's projectName-webtaskName).
 
-To simplify the difference between Webtask and a user's webtasks, we will define  
-**Webtask** as the Webtask platform  
-**functions** as the individual webtasks a user will create  
-**service** as a collection of functions that are combined into a, *you guessed it*, service.  
-(CRUD operations, endpoints of a collective backend, ...)
+### entry
+Entry determines the folder where wittier will look for your webtasks.
 
-Wittier does not replace `wt-cli` but serves as a wrapper around the existing CLI and uses it API for most functions.  
-Currently, the following options are in mind:
-* `wittier profile` list profiles, promptfully allow users to configure and migrate Webtask container profiles
-* `wittier edit` list existing profiles and webtasks in a folder-like structure
-(that the user can filter) and link them to the webtask web editor.
-* `wittier deploy` configure functions together into a service via `wittier.yml`
-and deploy/update all of them from the project folder
+### webtasks
+The webtasks object is where all webtasks are stored.
 
-### Learning from serverless.com
-Right off the bat, the biggest advantage of serverless is the integration of multiple FaaS providers into one platform.
-It's an amazing abstraction of vendors if you're in need of one, but wittier is built to focus solely on Webtask.
+`active` determines whether wittier will deploy them ("active": true) or not ("active": false).  
+When wittier is initialized, it will list all active webtasks that will be created or updated.  
+This has to be manually updated for now.
 
-The adoption of Webtask in the serverless platform is now taking its first steps, 
-so I'm confident that documentation, examples and functionality will improve over time
+`created` determines whether wittier will invoke wt create ("created": false) or wt update ("created": true).  
+Wittier will update this automatically, but right now you need to initialize it manually.
 
-Storing the configuration of functions and services in a `.yml` or `.json` file *vastly* improves
-the serverless development experience by providing abstraction and structure.
-The importance demonstrated by the serverless.com team is the reason why
-wittier will use a configuration file as well in the form of `wittier.yml`.
+**REMEMBER: initialize your webtasks as "created": false**
 
-### (Other) Must haves
-* Quickly initialize new functions and services without a hitch
-* Address child functions through Mustache or Handlebars, 
-following the naming structure specified in `wittier.yml`
-* Provide an abstraction in the cron scheduler similar to serverless.com
+### secrets
+You can define global secrets that will be added to the creation of your webtasks.  
+Wittier will call wt-cli when creating a webtask along with `--secret secretName=secretValue ` per secret.
 
-### Should haves
-* A browseable response by `wittier edit` (so we can choose via arrow keys + enter)
-* Determine whether node package management outside of package.json is necessary (possibly via `wittier.yml`)
-* Provide deployment of subservices through defining master and child `wittier.yml` files per function
+## TODO's for v0.2.0
+* Stop addressing updates as `deployed` but as `updated`
+* Natively access the wt-cli instead of via child_process
+* Access folder structure based on service/microservice name,
+and name seperate sub-functions as different files  
+(webtaskTest/index.js will be created as webtaskTest, webtaskTest/child.js as webtaskTest-child)
+* Address sibling webtasks in a file via templating structure (f.e. mustache) that renames to the full webtask url on creation/deploy.
+* Allow for webtask specific secrets.
 
-### Could haves
-* Slack messaging syntax and formatting in templates
-
-### Want to haves
-* Tab suggest/autocomplete of profiles or functions, coolest thing there is if you ask me, but hard to implement
-
-## wittier.yml
-*A work in progress*
+## TODO's for v0.3.0
+* Convert wittier to a cli that can parse commands
+* CLI commands to activate/deactivate webtasks.  
+`ACTIVE` = active,  
+`IDLE` = created but not redeploying,  
+`INACTIVE` = deleted.
+* CLI command to initialize a wittier project.
 
 ## Codesponsor
 <a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/SXH7ZmV8YYXzxLZF9dCVxN6W/jeroenptrs/wittier'>
