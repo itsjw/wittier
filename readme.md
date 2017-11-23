@@ -65,7 +65,6 @@ You can define global secrets that will be added to the creation of your webtask
 Wittier will call wt-cli when creating a webtask along with `--secret secretName=secretValue ` per secret.
 
 ## TODO's for v0.2.0
-* Stop addressing updates as `deployed` but as `updated`
 * Natively access the wt-cli instead of via child_process
 * Access folder structure based on service/microservice name,
 and name seperate sub-functions as different files  

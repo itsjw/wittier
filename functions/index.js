@@ -39,14 +39,14 @@ async function create(webtasksToCreate, path, project, wt, globalSecrets, file) 
   });
 }
 
-async function deploy(webtasksToDeploy, path, project) {
+async function update(webtasksToDeploy, path, project) {
   await webtasksToDeploy.forEach((w) => {
     // Spawn child process
     exec(`wt update ${project}-${w} ${path}/${w}/${w}.js`, async (error, stdout, stderr) => {
       if (error) {
         console.log(chalk.red(stderr));
       } else {
-        console.log(chalk.blue(`*  ${project}-${w} [DEPLOYED]`));
+        console.log(chalk.blue(`*  ${project}-${w} [UPDATED]`));
       }
     });
   });
@@ -56,5 +56,5 @@ module.exports = {
   initFile,
   globalSecrets,
   create,
-  deploy
+  update
 };

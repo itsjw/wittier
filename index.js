@@ -11,10 +11,10 @@ wittier.initFile(file).then((wt) => {
     const path = `${wt.entry}`;
     const webtasks = Object.keys(wt.webtasks);
 
-    // Store a repo of webtasks that need to be created or deployed
+    // Store a repo of webtasks that need to be created or updated
     const activeWebtasks = [];
     const webtasksToCreate = [];
-    const webtasksToDeploy = [];
+    const webtasksToUpdate = [];
     const globalSecrets = (wt.secrets) ? wittier.globalSecrets(wt.secrets) : undefined;
 
     // Determine Active Webtasks
@@ -23,8 +23,8 @@ wittier.initFile(file).then((wt) => {
     });
 
     activeWebtasks.forEach((webtask) => {
-      // Determine Webtasks to be deployed from activeWebtasks
-      if (wt.webtasks[webtask].created) webtasksToDeploy.push(webtask);
+      // Determine Webtasks to be updated from activeWebtasks
+      if (wt.webtasks[webtask].created) webtasksToUpdate.push(webtask);
       // Determine Webtasks to be built from activeWebtasks
       else webtasksToCreate.push(webtask);
     });
@@ -39,8 +39,8 @@ wittier.initFile(file).then((wt) => {
         wittier.create(webtasksToCreate, path, project, wt, globalSecrets, file);
       }
 
-      if (webtasksToDeploy.length > 0) {
-        wittier.deploy(webtasksToDeploy, path, project);
+      if (webtasksToUpdate.length > 0) {
+        wittier.update(webtasksToUpdate, path, project);
       }
     } else console.log(chalk.red('NO ACTIVE WEBTASKS. ABORTING.'));
   } else console.log(chalk.red('NO ACTIVE WEBTASKS. ABORTING.'));
