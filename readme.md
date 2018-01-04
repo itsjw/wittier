@@ -82,6 +82,4 @@ and name seperate sub-functions as different files
 * CLI command to initialize a wittier project.
 
 ## Codesponsor
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/SXH7ZmV8YYXzxLZF9dCVxN6W/jeroenptrs/wittier'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/SXH7ZmV8YYXzxLZF9dCVxN6W/jeroenptrs/wittier.svg' />
-</a>
+
